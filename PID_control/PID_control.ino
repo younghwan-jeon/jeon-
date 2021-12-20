@@ -25,7 +25,7 @@ MedianFilter<>  filter;
 #define _DUTY_MAX 2200    // [20213079] 서보 duty 최댓값
 
 // Servo speed control
-#define _SERVO_ANGLE 2500       // [20213062] 서보 각도  30
+#define _SERVO_ANGLE 2500     // [20213062] 서보 각도  30
 #define _SERVO_SPEED 1000    // [20213075] 서보의 속도  60
 
 // Event periods
@@ -138,7 +138,7 @@ void loop() {
     control = pterm + dterm + iterm; // [20213078]
 
     // duty_target = f(duty_neutral, control)
-    duty_target = _DUTY_NEU + control +50; // [20213055]
+    duty_target = (_DUTY_NEU + control +50); // [20213055]
 
     // keep duty_target value within the range of [_DUTY_MIN, _DUTY_MAX]
     if (duty_target < _DUTY_MIN) {
@@ -147,7 +147,7 @@ void loop() {
     if (duty_target > _DUTY_MAX) {
       duty_target = _DUTY_MAX;
     } // [20213080]
-
+    if (abs(error_curr) < 1.5) pterm *= 10;
     error_prev = error_curr;  // error update
   }
 
